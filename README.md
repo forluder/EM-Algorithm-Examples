@@ -21,11 +21,11 @@ We will first use this to find the posterior distribution of $Z_i|X_i$ using Bay
 
 
 
-$$P(Z_i=1|X_i)&=\frac{P(X_i|Z_i=1)P(Z_i=1)}{P(X_i)}$$
+$$P(Z_i=1|X_i)=\frac{P(X_i|Z_i=1)P(Z_i=1)}{P(X_i)}$$
 
-            $$&=\frac{{m\choose x_i}p_1^{x_i}(1-p_1)^{m-x_i}\cdot q}{{m\choose x_i}p_1^{x_i}(1-p_1)^{m-x_i}\cdot q+{m\choose x_i}p_2^{x_i}(1-p_2)^{m-x_i}\cdot (1-q)}$$
+            $$=\frac{{m\choose x_i}p_1^{x_i}(1-p_1)^{m-x_i}\cdot q}{{m\choose x_i}p_1^{x_i}(1-p_1)^{m-x_i}\cdot q+{m\choose x_i}p_2^{x_i}(1-p_2)^{m-x_i}\cdot (1-q)}$$
             
-            $$&=\gamma_{1i}$$
+            $$=\gamma_{1i}$$
 
 We will write this formula to obtain the $r^{th}$ iteration of $\gamma_{1i}$, denoted $\hat{\gamma}_{1i}^{(r)}$, in the following way
 \begin{align*}
