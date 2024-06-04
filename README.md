@@ -29,7 +29,7 @@ $$\hat{\gamma}_{1i}^{(r)}=\frac{{m\choose x_i}(\hat{p}_1^{(r-1)})^{x_i}(1-\hat{p
 
 Now, to perform the EM, we will find the expected likelihood of our sample with respect to the latent $z_i$'s. To simplify notation, we let
 
-$$ Q(\Theta^{(r)}, \Theta^{(r-1)})&=E_{Z|X, p_1, p_2, q}[L(X|p_1, p_2, q, Z)]\\ q(\Theta^{(r)}, \Theta^{(r-1)})&=E_{Z|X, p_1, p_2, q}[log(L(X|p_1, p_2, q, Z))]$$
+$$ Q(\Theta^{(r)}, \Theta^{(r-1)})=E_{Z|X, p_1, p_2, q}[L(X|p_1, p_2, q, Z)]\\ q(\Theta^{(r)}, \Theta^{(r-1)})=E_{Z|X, p_1, p_2, q}[log(L(X|p_1, p_2, q, Z))]$$
 
 where $\Theta=(q, p_1, p_2)$. So we have
 
