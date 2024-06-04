@@ -11,10 +11,9 @@ In this problem, we have a mixture of two binomial random variables with mixture
 We first state the problem by specifying the distribution from which we obtain our sample. After stating the distribution of the sample, we can maximize the incomplete log likelihood via an iterative method. 
 
 In addition to the mixture distribution as stated in the problem, we will assign latent variables $Z_1, Z_2, \cdots, Z_n$ that have the property that if $Z_i=1$ then we know $X_i\sim bin(m, p_1)$. Thus, by the statement of our problem and the definition of our latent variables, we have:
-$$
-X1, X_2, X_2, \cdots, X_n\sim qbin(m,p_1)+(1-q)bin(m,p_2)\\
-X_i|Z_i=1\sim bin(m, p_1)
-$$
+
+$$X1, X_2, X_2, \cdots, X_n\sim qbin(m,p_1)+(1-q)bin(m,p_2)$$
+$$X_i|Z_i=1\sim bin(m, p_1)$$
 
 ### Finding the Necessary Qunatitites
 We will first use this to find the posterior distribution of $Z_i|X_i$ using Bayes' rule.
