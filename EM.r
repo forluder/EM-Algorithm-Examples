@@ -176,9 +176,3 @@ EM<-function(X, Y, init, epsilon){
 
 
 res<-EM(X, Y, init, .00001)
-
-
-
-
-
-
