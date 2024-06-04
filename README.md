@@ -1,12 +1,6 @@
----
-title: "EM-Algorithm: Examples"
-author: "Patrick Mellady"
-output: pdf_document
----
+# EM-Algorithm: Examples
+### Patrick Mellady
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 Here are a couple examples of using the EM algorithm on statistical data. One example is a mixture of binomial distributions and the other is an exercise 29 out of Casella and Berger chapter 7.
 
@@ -17,25 +11,25 @@ In this problem, we have a mixture of two binomial random variables with mixture
 We first state the problem by specifying the distribution from which we obtain our sample. After stating the distribution of the sample, we can maximize the incomplete log likelihood via an iterative method. 
 
 In addition to the mixture distribution as stated in the problem, we will assign latent variables $Z_1, Z_2, \cdots, Z_n$ that have the property that if $Z_i=1$ then we know $X_i\sim bin(m, p_1)$. Thus, by the statement of our problem and the definition of our latent variables, we have:
-$$
+\begin{align*}
 X_1, X_2, X_2, \cdots, X_n\sim qbin(m,p_1)+(1-q)bin(m,p_2)\\
 X_i|Z_i=1\sim bin(m, p_1)
-$$
+\end{align*}
 
 ### Finding the Necessary Qunatitites
 We will first use this to find the posterior distribution of $Z_i|X_i$ using Bayes' rule.
 
 
-$$
-P(Z_i=1|X_i)=\frac{P(X_i|Z_i=1)P(Z_i=1)}{P(X_i)}
-            =\frac{{m\choose x_i}p_1^{x_i}(1-p_1)^{m-x_i}\cdot q}{{m\choose x_i}p_1^{x_i}(1-p_1)^{m-x_i}\cdot q+{m\choose x_i}p_2^{x_i}(1-p_2)^{m-x_i}\cdot (1-q)}
-            =\gamma_{1i}
-$$
+\begin{align*}
+P(Z_i=1|X_i)&=\frac{P(X_i|Z_i=1)P(Z_i=1)}{P(X_i)}\\
+            &=\frac{{m\choose x_i}p_1^{x_i}(1-p_1)^{m-x_i}\cdot q}{{m\choose x_i}p_1^{x_i}(1-p_1)^{m-x_i}\cdot q+{m\choose x_i}p_2^{x_i}(1-p_2)^{m-x_i}\cdot (1-q)}\\
+            &=\gamma_{1i}
+\end{align*}
 
 We will write this formula to obtain the $r^{th}$ iteration of $\gamma_{1i}$, denoted $\hat{\gamma}_{1i}^{(r)}$, in the following way
-$$
+\begin{align*}
 \hat{\gamma}_{1i}^{(r)}=\frac{{m\choose x_i}(\hat{p}_1^{(r-1)})^{x_i}(1-\hat{p}_1^{(r-1)})^{m-x_i}\cdot \hat{q}^{(r-1)}}{{m\choose x_i}(\hat{p}_1^{(r-1)})^{x_i}(1-\hat{p}_1^{(r-1)})^{m-x_i}\cdot \hat{q}^{(r-1)}+{m\choose x_i}(\hat{p}_2^{(r-1)})^{x_i}(1-\hat{p}_2^{(r-1)})^{m-x_i}\cdot (1-\hat{q}^{(r-1)})}
-$$
+\end{align*}
 Now, to perform the EM, we will find the expected likelihood of our sample with respect to the latent $z_i$'s. To simplify notation, we let
 \begin{align*}
 Q(\Theta^{(r)}, \Theta^{(r-1)})&=E_{Z|X, p_1, p_2, q}[L(X|p_1, p_2, q, Z)]\\
@@ -44,9 +38,9 @@ q(\Theta^{(r)}, \Theta^{(r-1)})&=E_{Z|X, p_1, p_2, q}[log(L(X|p_1, p_2, q, Z))]
 
 where $\Theta=(q, p_1, p_2)$. So we have
 
-$$
+\begin{align*}
 Q(\Theta^{(r)}, \Theta^{(r-1)})=E_{Z|X, p_1, p_2, q}[\Pi_{i=1}^n[{m\choose x_i} p_1^{x_i} (1-p_1)^{m-x_1} q]^{z_i} \cdot[{m\choose x_i} p_2^{x_i} (1-p_2)^{m-x_1} (1-q)]^{1-z_i}]
-$$
+\end{align*}
 
 and
 
@@ -84,9 +78,9 @@ Next, we will take the derivative with respect to $p_1$, which gives
 \end{align*}
 
 From the symmetry of the problem, we find that
-$$
+\begin{align*}
 \frac{\Sigma_{i=1}^n(1-\hat{\gamma}_{1i}^{(r)})x_i}{m\Sigma_{i=1}^n(1-\hat{\gamma}_{1i}^{(r)})}=\hat{p_2}^{(r+1)}
-$$
+\end{align*}
 
 
 
@@ -211,35 +205,35 @@ The following problem is taken from Casella and Berger chapter 7 exercise 29. In
 
 ### Distributional Statement
 Since the multinomial mass function is $f(x)=\frac{m!}{x_1!x_2!\cdots x_n!}\tau_1^{x_1}\tau_2^{x_2}\cdots\tau_n^{x_n}$ and the poisson mass function is $f(y_i)=\frac{e^{-m\beta\tau_i}(m\beta\tau_i)^{y_i}}{y_i!}$, the likelihood of $X$ and $Y$ is given by:
-$$
+\begin{align*}
 f(\textbf{y},\textbf{x}|\beta,\boldsymbol{\tau})=m!\prod_{i=1}^n\frac{e^{-m\beta\tau_i}(m\beta\tau_i)^{y_i}}{y_i!}\frac{\tau_i^{x_i}}{x_i!}
-$$
+\end{align*}
 
 This gives us the following log-likelihood:
-$$
+\begin{align*}
 l=\ln(m!)+\sum_{i=1}^n[-m\beta\tau_i+y_i\ln(m\beta\tau_i)+x_i\ln(\tau_i)-\ln(y_i!x_i!)]
-$$
+\end{align*}
 
 ### Finding Estimates with Complete Data
 First, we will find the maximum likelihood estimators by using the complete data. This amounts so simply differentiating the log-likelihood with respect to the parameters ($\beta,\tau_i$) and setting this equal to zero to find estimates. We do this now:
-$$
+\begin{align*}
 \frac{dl}{d\beta}=\sum_{i=1}^n[-m\tau_i+\frac{y_i}{\beta}]=0\implies\hat{\beta}=\frac{\sum_{i=1}^ny_i}{m\sum_{i=1}^n\hat{\tau_i}}
-$$
+\end{align*}
 
 However, recall that $\sum_{i=1}^n\hat{\tau}_i=1$ and that $\sum_{i=1}^nx_i=m$, so the estimate above can be written as
-$$
+\begin{align*}
 \hat{\beta}=\frac{\sum_{i=1}^ny_i}{\sum_{i=1}^nx_i}
-$$
+\end{align*}
 
 Now, we find the estimates for $\tau_i$
-$$
+\begin{align*}
 \frac{dl}{d\tau_i}=-m\beta+\frac{y_i+x_i}{\tau_i}\implies\hat{\tau}_i=\frac{y_i+x_i}{m\hat{\beta}}
-$$
+\end{align*}
 
 Now, note that, since $1=\sum_{i=1}^n \hat{\tau}_i=\frac{\sum_{i=1}^n[y_i+x_i]}{m\hat{\beta}}$, we have that $m\hat{\beta}=\sum_{i=1}^n[y_i+x_i]$, which gives us the following estimate for $\tau_i$
-$$
+\begin{align*}
 \hat{\tau_i}=\frac{y_i+x_i}{\sum_{i=1}^n[y_i+x_i]}
-$$
+\end{align*}
 
 
 ### Finding Estimates with Missing Data
@@ -259,9 +253,9 @@ We also know that, marginally, $X_1\sim bin(m,\tau_1)$, so, heuristically, we ca
 \end{align*}
 
 We can make this process rigorous by reintroducing the conditional expected log-likelihood that we saw in the first example. Let 
-$$
+\begin{align*}
 q(\Theta^{(r)}, \Theta^{(r-1)})=E_{X_1|X,Y}(l)
-$$
+\end{align*}
 
 We will differentiate $q$ with respect to our parameters. See that
 \begin{align*}
@@ -275,9 +269,9 @@ We will differentiate $q$ with respect to our parameters. See that
 \end{align*}
 
 Setting this equal to zero and solving gives the following estimate
-$$
+\begin{align*}
 \hat{\beta}^{(r+1)}=\frac{\sum_{i=1}^ny_i}{m\hat{\tau_1}^{(r)}+\sum_{i=2}^nx_i}
-$$
+\end{align*}
 
 Similarly, for $\tau_j$
 \begin{align*}
@@ -288,15 +282,15 @@ Similarly, for $\tau_j$
                                                                                   &=-m\beta^{(r)}+\frac{y_j}{\tau_j^{(r+1)}}+\frac{E_{X_1|X,Y}(x_j)}{\tau_j^{(r+1)}}\\
 \end{align*}
 Now, if $j=1$, we get the following when we set the above expression equal to zero
-$$
+\begin{align*}
 \hat{\tau_1}^{(r+1)}=\frac{y_1+m\hat{\tau_1}^{(r)}}{m\hat{\beta}^{(r)}}
-$$
+\end{align*}
 
 
 and if $j\ne1$
-$$
+\begin{align*}
 \hat{\tau_j}^{(r+1)}=\frac{y_j+x_j}{m\hat{\beta}^{(r)}}
-$$
+\end{align*}
 
 
 
