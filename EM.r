@@ -6,14 +6,14 @@
 # example is a mixture model of two binomial distributions where we augment
 # the data with a latent variable that denotes from which distribution the data
 # comes from. The second example is a missing data problem with Poisson regression.
-# This is an eercise from Casella and Berger
+# This is an exercise from Casella and Berger
 
 ################################################################################
 # EM for Mixture Model Classification ##########################################
 ################################################################################
 
 # Initializing the Algorithm
-n<-100
+n<-1000
 P.init<-c(.1, .6, .7)
 
 # True Values
@@ -149,15 +149,17 @@ EM<-function(X, Y, init, epsilon){
     b0 <- b
     t0 <- t
     
-    t[1]<-Y[1]/(m*(b0-1))
+    b<-sum(Y)/(m*t0[1]+sum(X[2:n]))
+    
+    t[1]<-(Y[1]+m*t0[1])/(m*b)
     
     for(i in 2:n){
-      t[i]<-(Y[i]+X[i])/(m*b0)
+      t[i]<-(Y[i]+X[i])/(m*b)
     }
     
-    b<-sum(Y)/(m*t[1]+sum(X[2:n]))
     
     vec<-c(t,b)
+    
     
     k<-k+1
     if(k%%50000==0){
