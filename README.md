@@ -29,38 +29,26 @@ $$\hat{\gamma}_{1i}^{(r)}=\frac{{m\choose x_i}(\hat{p}_1^{(r-1)})^{x_i}(1-\hat{p
 
 Now, to perform the EM, we will find the expected likelihood of our sample with respect to the latent $z_i$'s. To simplify notation, we let
 
-$$ Q(\Theta^{(r)}, \Theta^{(r-1)})=E_{Z|X, p_1, p_2, q}[L(X|p_1, p_2, q, Z)]\\ q(\Theta^{(r)}, \Theta^{(r-1)})=E_{Z|X, p_1, p_2, q}[log(L(X|p_1, p_2, q, Z))]$$
+$$ Q(\Theta^{(r)}, \Theta^{(r-1)})=E_{Z|X, p_1, p_2, q}[L(X|p_1, p_2, q, Z)]$$
+
+$$q(\Theta^{(r)}, \Theta^{(r-1)})=E_{Z|X, p_1, p_2, q}[log(L(X|p_1, p_2, q, Z))]$$
 
 where $\Theta=(q, p_1, p_2)$. So we have
 
-\begin{align*}
-Q(\Theta^{(r)}, \Theta^{(r-1)})=E_{Z|X, p_1, p_2, q}[\Pi_{i=1}^n[{m\choose x_i} p_1^{x_i} (1-p_1)^{m-x_1} q]^{z_i} \cdot[{m\choose x_i} p_2^{x_i} (1-p_2)^{m-x_1} (1-q)]^{1-z_i}]
-\end{align*}
+$$Q(\Theta^{(r)}, \Theta^{(r-1)})=E_{Z|X, p_1, p_2, q}[\Pi_{i=1}^n[{m\choose x_i} p_1^{x_i} (1-p_1)^{m-x_1} q]^{z_i} \cdot[{m\choose x_i} p_2^{x_i} (1-p_2)^{m-x_1} (1-q)]^{1-z_i}]$$
 
 and
 
-\begin{align*}
-q(\Theta^{(r)}, \Theta^{(r-1)})&=E_{Z|X, p_1, p_2, q}[log(\Pi_{i=1}^n[{m\choose x_i} p_1^{x_i} (1-p_1)^{m-x_1} q]^{z_i} \cdot[{m\choose x_i} p_2^{x_i} (1-p_2)^{m-x_1} (1-q)]^{1-z_i}])\\
-                &=E_{Z|X, p_1, p_2, q}[\Sigma_{i=1}^n[z_i[log{m\choose x_i}+x_i log(p_1)+(m-x_i)log(1-p_1)+log(q)]+\\
-                &(1-z_i)[log{m\choose x_i}+x_i log(p_2)+(m-x_i)log(1-p_2)+log(1-q)]]]
-\end{align*}
+$$q(\Theta^{(r)}, \Theta^{(r-1)})&=E_{Z|X, p_1, p_2, q}[log(\Pi_{i=1}^n[{m\choose x_i} p_1^{x_i} (1-p_1)^{m-x_1} q]^{z_i} \cdot[{m\choose x_i} p_2^{x_i} (1-p_2)^{m-x_1} (1-q)]^{1-z_i}])=E_{Z|X, p_1, p_2, q}[\Sigma_{i=1}^n[z_i[log{m\choose x_i}+x_i log(p_1)+(m-x_i)log(1-p_1)+log(q)]+(1-z_i)[log{m\choose x_i}+x_i log(p_2)+(m-x_i)log(1-p_2)+log(1-q)]]]$$
 
 Now that we have the expected log-likelihood, we can push the expectation through to obtain
-\begin{align*}
-q(\Theta^{(r)}, \Theta^{(r-1)})&=\Sigma_{i=1}^n[\hat{\gamma}_{1i}^{(r)}[log{m\choose x_i}+x_i log(p_1)+\\
-&(m-x_i)log(1-p_1)+log(q)]+(1-\hat{\gamma}_{1i}^{(r)})[log{m\choose x_i}+x_i log(p_2)+(m-x_i)log(1-p_2)+log(1-q)]]
-\end{align*}
+
+$$q(\Theta^{(r)}, \Theta^{(r-1)})=\Sigma_{i=1}^n[\hat{\gamma}_{1i}^{(r)}[log{m\choose x_i}+x_i log(p_1)+(m-x_i)log(1-p_1)+log(q)]+(1-\hat{\gamma}_{1i}^{(r)})[log{m\choose x_i}+x_i log(p_2)+(m-x_i)log(1-p_2)+log(1-q)]]$$
 
 ### Finding Derivatives to Maximize Iteratively
 We will now take the derivative with respect to the $(r+1)^{th}$ iterations, and since $\hat{\gamma}_{1i}^{(r)}$ is based on the $(r-1)^{th}$ iteration, it will be treated as a constant. We now differentiate with respect to $q$ and set this equal to $0$ first:
 
-\begin{align*}
-\dfrac{dq(\Theta^{(r)}, \Theta^{(r-1)})}{dq}&=\Sigma_{i=1}^n[\hat{\gamma}_{1i}^{(r)}\frac{1}{q}-(1-\hat{\gamma}_{1i}^{(r)})\frac{1}{1-q}]=0\\
-&\implies\frac{1}{q(1-q)}\Sigma_{i=1}^n[\hat{\gamma}_{1i}^{(r)}(1-q)-(1-\hat{\gamma}_{1i}^{(r)})q]=0\\
-&\implies\frac{1}{q(1-q)}\Sigma_{i=1}^n[\hat{\gamma}_{1i}^{(r)}-q]=0\\
-&\implies\Sigma_{i=1}^n\hat{\gamma}_{1i}^{(r)}=nq\\
-&\implies\frac{\Sigma_{i=1}^n\hat{\gamma}_{1i}^{(r)}}{n}=\hat{q}^{(r+1)}
-\end{align*}
+$$\dfrac{dq(\Theta^{(r)}, \Theta^{(r-1)})}{dq}&=\Sigma_{i=1}^n[\hat{\gamma}_{1i}^{(r)}\frac{1}{q}-(1-\hat{\gamma}_{1i}^{(r)})\frac{1}{1-q}]=0\implies\frac{1}{q(1-q)}\Sigma_{i=1}^n[\hat{\gamma}_{1i}^{(r)}(1-q)-(1-\hat{\gamma}_{1i}^{(r)})q]=0\implies\frac{1}{q(1-q)}\Sigma_{i=1}^n[\hat{\gamma}_{1i}^{(r)}-q]=0\implies\Sigma_{i=1}^n\hat{\gamma}_{1i}^{(r)}=nq\implies\frac{\Sigma_{i=1}^n\hat{\gamma}_{1i}^{(r)}}{n}=\hat{q}^{(r+1)}$$
 
 
 Next, we will take the derivative with respect to $p_1$, which gives
